@@ -4,8 +4,7 @@ extern crate hadron_sclang;
 
 fn main() {
     fuzz!(|data: &[u8]| {
-        if let Ok(s) = std::str::from_utf8(data) {
-            let _ = hadron_sclang::toolchain::lexer::tokenize(&s).count();
-        }
+        let s = std::str::from_utf_unchecked(data);
+        let _ = hadron_sclang::toolchain::lexer::tokenize(&s).count();
     });
 }
